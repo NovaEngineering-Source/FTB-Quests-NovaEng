@@ -36,7 +36,7 @@ public abstract class QuestData
 		areDependenciesCompleteCache = null;
 	}
 
-	public abstract short getTeamUID();
+	public abstract int getTeamUID();
 
 	public abstract String getTeamID();
 

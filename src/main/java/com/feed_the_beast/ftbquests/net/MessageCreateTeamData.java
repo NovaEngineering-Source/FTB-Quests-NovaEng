@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class MessageCreateTeamData extends MessageToClient
 {
-	private short uid;
+	private int uid;
 	private String id;
 	private ITextComponent name;
 
@@ -43,7 +43,7 @@ public class MessageCreateTeamData extends MessageToClient
 	@Override
 	public void writeData(DataOut data)
 	{
-		data.writeShort(uid);
+		data.writeInt(uid);
 		data.writeString(id);
 		data.writeTextComponent(name);
 	}
@@ -51,7 +51,7 @@ public class MessageCreateTeamData extends MessageToClient
 	@Override
 	public void readData(DataIn data)
 	{
-		uid = data.readShort();
+		uid = data.readInt();
 		id = data.readString();
 		name = data.readTextComponent();
 	}

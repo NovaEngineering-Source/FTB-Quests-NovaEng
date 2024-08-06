@@ -19,7 +19,7 @@ import java.util.UUID;
  */
 public class MessageClaimRewardResponse extends MessageToClient
 {
-	private short team;
+	private int team;
 	private UUID player;
 	private int id;
 
@@ -27,7 +27,7 @@ public class MessageClaimRewardResponse extends MessageToClient
 	{
 	}
 
-	public MessageClaimRewardResponse(short t, UUID p, int i)
+	public MessageClaimRewardResponse(int t, UUID p, int i)
 	{
 		team = t;
 		player = p;
@@ -43,7 +43,7 @@ public class MessageClaimRewardResponse extends MessageToClient
 	@Override
 	public void writeData(DataOut data)
 	{
-		data.writeShort(team);
+		data.writeInt(team);
 		data.writeUUID(player);
 		data.writeInt(id);
 	}
@@ -51,7 +51,7 @@ public class MessageClaimRewardResponse extends MessageToClient
 	@Override
 	public void readData(DataIn data)
 	{
-		team = data.readShort();
+		team = data.readInt();
 		player = data.readUUID();
 		id = data.readInt();
 	}

@@ -32,14 +32,15 @@ import org.apache.logging.log4j.Logger;
 		modid = FTBQuests.MOD_ID,
 		name = FTBQuests.MOD_NAME,
 		version = FTBQuests.VERSION,
-		dependencies = FTBLib.THIS_DEP + ";required-after:itemfilters;before:kubejs;after:gamestages;after:ic2;after:ftbutilities;after:botania;after:buildcraftcore;after:projecte;after:customnpcs;after:reskillable",
-		acceptableRemoteVersions = "*"
+		dependencies = FTBLib.THIS_DEP + ";required-after:itemfilters;before:kubejs;after:gamestages;after:ic2;after:ftbutilities;after:botania;after:buildcraftcore;after:projecte;after:customnpcs;after:reskillable"
+//		Uid type is changed, old version is no longer supported.
+//		acceptableRemoteVersions = "*"
 )
 public class FTBQuests
 {
 	public static final String MOD_ID = "ftbquests";
 	public static final String MOD_NAME = "FTB Quests";
-	public static final String VERSION = "0.0.0.ftbquests";
+	public static final String VERSION = Tags.VERSION;
 	public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
 
 	@Mod.Instance(MOD_ID)
@@ -60,6 +61,7 @@ public class FTBQuests
 	@Mod.EventHandler
 	public void onPreInit(FMLPreInitializationEvent event)
 	{
+		event.getModMetadata().version = VERSION;
 		FTBQuestsNetHandler.init();
 
 		if (Loader.isModLoaded("kubejs"))

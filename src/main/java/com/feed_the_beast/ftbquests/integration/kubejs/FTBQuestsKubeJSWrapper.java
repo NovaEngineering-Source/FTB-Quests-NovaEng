@@ -53,9 +53,9 @@ public class FTBQuestsKubeJSWrapper
 
 	@Nullable
 	@Info("Quest data from team UID")
-	public QuestData getData(@P("world") WorldJS world, @P("team") @T(short.class) Number team)
+	public QuestData getData(@P("world") WorldJS world, @P("team") @T(int.class) Number team)
 	{
-		return getFile(world).getData(team.shortValue());
+		return getFile(world).getData(team.intValue());
 	}
 
 	@Nullable

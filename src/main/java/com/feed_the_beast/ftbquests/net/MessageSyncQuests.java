@@ -21,7 +21,7 @@ public class MessageSyncQuests extends MessageToClient
 	public static class TeamInst
 	{
 		public static final DataOut.Serializer<TeamInst> SERIALIZER = (data, t) -> {
-			data.writeShort(t.uid);
+			data.writeInt(t.uid);
 			data.writeString(t.id);
 			data.writeTextComponent(t.name);
 			data.writeVarInt(t.taskKeys.length);
@@ -55,7 +55,7 @@ public class MessageSyncQuests extends MessageToClient
 
 		public static final DataIn.Deserializer<TeamInst> DESERIALIZER = data -> {
 			TeamInst t = new TeamInst();
-			t.uid = data.readShort();
+			t.uid = data.readInt();
 			t.id = data.readString();
 			t.name = data.readTextComponent();
 			t.taskKeys = new int[data.readVarInt()];
@@ -91,7 +91,7 @@ public class MessageSyncQuests extends MessageToClient
 			return t;
 		};
 
-		public short uid;
+		public int uid;
 		public String id;
 		public ITextComponent name;
 		public int[] taskKeys;
@@ -103,11 +103,11 @@ public class MessageSyncQuests extends MessageToClient
 	}
 
 	public QuestFile file;
-	public short team;
+	public int team;
 	public Collection<TeamInst> teamData;
 	public boolean editingMode;
 	public UUID[] playerIDs;
-	public short[] playerTeams;
+	public int[] playerTeams;
 	public int[] favorites;
 
 	@Override
@@ -120,7 +120,7 @@ public class MessageSyncQuests extends MessageToClient
 	public void writeData(DataOut data)
 	{
 		file.writeNetDataFull(data);
-		data.writeShort(team);
+		data.writeInt(team);
 		data.writeCollection(teamData, TeamInst.SERIALIZER);
 		data.writeBoolean(editingMode);
 		data.writeVarInt(playerIDs.length);
@@ -128,7 +128,7 @@ public class MessageSyncQuests extends MessageToClient
 		for (int i = 0; i < playerIDs.length; i++)
 		{
 			data.writeUUID(playerIDs[i]);
-			data.writeShort(playerTeams[i]);
+			data.writeInt(playerTeams[i]);
 		}
 
 		data.writeVarInt(favorites.length);
@@ -144,17 +144,17 @@ public class MessageSyncQuests extends MessageToClient
 	{
 		file = new ClientQuestFile();
 		file.readNetDataFull(data);
-		team = data.readShort();
+		team = data.readInt();
 		teamData = data.readCollection(TeamInst.DESERIALIZER);
 		editingMode = data.readBoolean();
 
 		playerIDs = new UUID[data.readVarInt()];
-		playerTeams = new short[playerIDs.length];
+		playerTeams = new int[playerIDs.length];
 
 		for (int i = 0; i < playerIDs.length; i++)
 		{
 			playerIDs[i] = data.readUUID();
-			playerTeams[i] = data.readShort();
+			playerTeams[i] = data.readInt();
 		}
 
 		favorites = new int[data.readVarInt()];

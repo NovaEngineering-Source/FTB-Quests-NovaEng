@@ -15,11 +15,11 @@ import java.util.List;
  */
 public class ClientQuestData extends QuestData
 {
-	private final short teamUID;
+	private final int teamUID;
 	private final String teamID;
 	private final ITextComponent displayName;
 
-	public ClientQuestData(short uid, String id, ITextComponent n)
+	public ClientQuestData(int uid, String id, ITextComponent n)
 	{
 		teamUID = uid;
 		teamID = id;
@@ -27,7 +27,7 @@ public class ClientQuestData extends QuestData
 	}
 
 	@Override
-	public short getTeamUID()
+	public int getTeamUID()
 	{
 		return teamUID;
 	}

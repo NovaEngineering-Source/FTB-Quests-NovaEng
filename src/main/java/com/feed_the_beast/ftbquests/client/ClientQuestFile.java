@@ -14,9 +14,11 @@ import com.feed_the_beast.ftbquests.quest.QuestData;
 import com.feed_the_beast.ftbquests.quest.QuestFile;
 import com.feed_the_beast.ftbquests.quest.task.Task;
 import com.feed_the_beast.ftbquests.quest.theme.QuestTheme;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
-import it.unimi.dsi.fastutil.objects.Object2ShortOpenHashMap;
-import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextComponentTranslation;
 
@@ -41,19 +43,19 @@ public class ClientQuestFile extends QuestFile
 		return exists() && INSTANCE.self != null;
 	}
 
-	private final Short2ObjectOpenHashMap<ClientQuestData> teamData;
+	private final Int2ObjectMap<ClientQuestData> teamData;
 	public ClientQuestData self;
 	public GuiQuestTree questTreeGui;
 	public GuiBase questGui;
 	public boolean editingMode;
-	public final Object2ShortOpenHashMap<UUID> playerTeams;
+	public final Object2IntMap<UUID> playerTeams;
 	public final IntOpenHashSet pinnedQuests;
 
 	public ClientQuestFile()
 	{
-		teamData = new Short2ObjectOpenHashMap<>();
-		playerTeams = new Object2ShortOpenHashMap<>();
-		playerTeams.defaultReturnValue((short) 0);
+		teamData = new Int2ObjectOpenHashMap<>();
+		playerTeams = new Object2IntOpenHashMap<>();
+		playerTeams.defaultReturnValue(0);
 		pinnedQuests = new IntOpenHashSet();
 	}
 
@@ -234,7 +236,7 @@ public class ClientQuestFile extends QuestFile
 
 	@Nullable
 	@Override
-	public ClientQuestData getData(short team)
+	public ClientQuestData getData(int team)
 	{
 		return team == 0 ? null : teamData.get(team);
 	}
@@ -243,10 +245,10 @@ public class ClientQuestFile extends QuestFile
 	@Nullable
 	public QuestData getData(UUID player)
 	{
-		return getData(playerTeams.getShort(player));
+		return getData(playerTeams.getInt(player));
 	}
 
-	public ClientQuestData removeData(short team)
+	public ClientQuestData removeData(int team)
 	{
 		return teamData.remove(team);
 	}

@@ -16,7 +16,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
  */
 public class MessageChangeProgress extends MessageToServer
 {
-	private short team;
+	private int team;
 	private int id;
 	private ChangeProgress type;
 
@@ -24,7 +24,7 @@ public class MessageChangeProgress extends MessageToServer
 	{
 	}
 
-	public MessageChangeProgress(short t, int i, ChangeProgress ty)
+	public MessageChangeProgress(int t, int i, ChangeProgress ty)
 	{
 		team = t;
 		id = i;
@@ -40,7 +40,7 @@ public class MessageChangeProgress extends MessageToServer
 	@Override
 	public void writeData(DataOut data)
 	{
-		data.writeShort(team);
+		data.writeInt(team);
 		data.writeInt(id);
 		ChangeProgress.NAME_MAP.write(data, type);
 	}
@@ -48,7 +48,7 @@ public class MessageChangeProgress extends MessageToServer
 	@Override
 	public void readData(DataIn data)
 	{
-		team = data.readShort();
+		team = data.readInt();
 		id = data.readInt();
 		type = ChangeProgress.NAME_MAP.read(data);
 	}

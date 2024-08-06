@@ -8,6 +8,7 @@ import com.feed_the_beast.ftbquests.quest.reward.RewardAutoClaim;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.*;
 
 /**
  * @author LatvianModder
@@ -33,6 +34,7 @@ public enum QuestRegistry
 
 		if (ClientQuestFile.exists())
 		{
+			List<ForkJoinTask<QuestWrapper>> tasks = new ArrayList<>();
 			for (Chapter chapter : ClientQuestFile.INSTANCE.chapters)
 			{
 				for (Quest quest : chapter.quests)
@@ -54,12 +56,21 @@ public enum QuestRegistry
 
 					if (!rewards.isEmpty())
 					{
-						QuestWrapper wrapper = new QuestWrapper(quest, rewards);
-						list.add(wrapper);
-						FTBQuestsJEIIntegration.runtime.getRecipeRegistry().addRecipe(wrapper, QuestCategory.UID);
+						ForkJoinTask<QuestWrapper> future = ForkJoinPool.commonPool().submit(() -> new QuestWrapper(quest, rewards));
+						tasks.add(future);
 					}
 				}
 			}
-		}
+
+            for (ForkJoinTask<QuestWrapper> task : tasks) {
+                try {
+                    QuestWrapper wrapper = task.get();
+                    list.add(wrapper);
+                    FTBQuestsJEIIntegration.runtime.getRecipeRegistry().addRecipe(wrapper, QuestCategory.UID);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
 	}
 }

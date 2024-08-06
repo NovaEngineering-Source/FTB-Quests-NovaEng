@@ -992,7 +992,7 @@ public abstract class QuestFile extends QuestObject
 	}
 
 	@Nullable
-	public abstract QuestData getData(short team);
+	public abstract QuestData getData(int team);
 
 	@Nullable
 	public abstract QuestData getData(String team);

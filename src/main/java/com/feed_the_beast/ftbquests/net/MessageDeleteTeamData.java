@@ -13,13 +13,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class MessageDeleteTeamData extends MessageToClient
 {
-	public short team;
+	public int team;
 
 	public MessageDeleteTeamData()
 	{
 	}
 
-	public MessageDeleteTeamData(short t)
+	public MessageDeleteTeamData(int t)
 	{
 		team = t;
 	}
@@ -33,13 +33,13 @@ public class MessageDeleteTeamData extends MessageToClient
 	@Override
 	public void writeData(DataOut data)
 	{
-		data.writeShort(team);
+		data.writeInt(team);
 	}
 
 	@Override
 	public void readData(DataIn data)
 	{
-		team = data.readShort();
+		team = data.readInt();
 	}
 
 	@Override

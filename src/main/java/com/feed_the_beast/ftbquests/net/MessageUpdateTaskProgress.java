@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class MessageUpdateTaskProgress extends MessageToClient
 {
-	private short team;
+	private int team;
 	private int task;
 	private long progress;
 
@@ -23,7 +23,7 @@ public class MessageUpdateTaskProgress extends MessageToClient
 	{
 	}
 
-	public MessageUpdateTaskProgress(short t, int k, long p)
+	public MessageUpdateTaskProgress(int t, int k, long p)
 	{
 		team = t;
 		task = k;
@@ -39,7 +39,7 @@ public class MessageUpdateTaskProgress extends MessageToClient
 	@Override
 	public void writeData(DataOut data)
 	{
-		data.writeShort(team);
+		data.writeInt(team);
 		data.writeInt(task);
 		data.writeVarLong(progress);
 	}
@@ -47,7 +47,7 @@ public class MessageUpdateTaskProgress extends MessageToClient
 	@Override
 	public void readData(DataIn data)
 	{
-		team = data.readShort();
+		team = data.readInt();
 		task = data.readInt();
 		progress = data.readVarLong();
 	}

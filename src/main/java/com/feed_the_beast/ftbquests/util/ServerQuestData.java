@@ -135,7 +135,7 @@ public class ServerQuestData extends QuestData implements NBTDataStorage.Data
 	{
 		if (event.getPlayer().isOnline())
 		{
-			new MessageChangedTeam(event.getPlayer().getId(), (short) 0).sendTo(event.getPlayer().getPlayer());
+			new MessageChangedTeam(event.getPlayer().getId(), 0).sendTo(event.getPlayer().getPlayer());
 		}
 	}
 
@@ -221,7 +221,7 @@ public class ServerQuestData extends QuestData implements NBTDataStorage.Data
 
 		m.editingMode = FTBQuests.canEdit(player);
 		m.playerIDs = new UUID[event.getUniverse().getPlayers().size()];
-		m.playerTeams = new short[m.playerIDs.length];
+		m.playerTeams = new int[m.playerIDs.length];
 
 		int i = 0;
 
@@ -319,7 +319,7 @@ public class ServerQuestData extends QuestData implements NBTDataStorage.Data
 	}
 
 	@Override
-	public short getTeamUID()
+	public int getTeamUID()
 	{
 		return team.getUID();
 	}

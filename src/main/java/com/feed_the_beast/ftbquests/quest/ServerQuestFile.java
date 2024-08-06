@@ -88,7 +88,7 @@ public class ServerQuestFile extends QuestFile
 
 	@Override
 	@Nullable
-	public ServerQuestData getData(short team)
+	public ServerQuestData getData(int team)
 	{
 		if (team == 0)
 		{

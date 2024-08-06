@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class MessageChangeProgressResponse extends MessageToClient
 {
-	private short team;
+	private int team;
 	private int id;
 	private ChangeProgress type;
 	private boolean notifications;
@@ -25,7 +25,7 @@ public class MessageChangeProgressResponse extends MessageToClient
 	{
 	}
 
-	public MessageChangeProgressResponse(short t, int i, ChangeProgress ty, boolean n)
+	public MessageChangeProgressResponse(int t, int i, ChangeProgress ty, boolean n)
 	{
 		team = t;
 		id = i;
@@ -42,7 +42,7 @@ public class MessageChangeProgressResponse extends MessageToClient
 	@Override
 	public void writeData(DataOut data)
 	{
-		data.writeShort(team);
+		data.writeInt(team);
 		data.writeInt(id);
 		ChangeProgress.NAME_MAP.write(data, type);
 		data.writeBoolean(notifications);
@@ -51,7 +51,7 @@ public class MessageChangeProgressResponse extends MessageToClient
 	@Override
 	public void readData(DataIn data)
 	{
-		team = data.readShort();
+		team = data.readInt();
 		id = data.readInt();
 		type = ChangeProgress.NAME_MAP.read(data);
 		notifications = data.readBoolean();

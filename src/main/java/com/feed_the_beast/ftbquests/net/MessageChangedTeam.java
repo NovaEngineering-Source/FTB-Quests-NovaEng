@@ -17,13 +17,13 @@ import java.util.UUID;
 public class MessageChangedTeam extends MessageToClient
 {
 	public UUID player;
-	public short team;
+	public int team;
 
 	public MessageChangedTeam()
 	{
 	}
 
-	public MessageChangedTeam(UUID id, short t)
+	public MessageChangedTeam(UUID id, int t)
 	{
 		player = id;
 		team = t;
@@ -39,14 +39,14 @@ public class MessageChangedTeam extends MessageToClient
 	public void writeData(DataOut data)
 	{
 		data.writeUUID(player);
-		data.writeShort(team);
+		data.writeInt(team);
 	}
 
 	@Override
 	public void readData(DataIn data)
 	{
 		player = data.readUUID();
-		team = data.readShort();
+		team = data.readInt();
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class MessageChangedTeam extends MessageToClient
 		{
 			if (team == 0)
 			{
-				ClientQuestFile.INSTANCE.playerTeams.removeShort(player);
+				ClientQuestFile.INSTANCE.playerTeams.removeInt(player);
 			}
 			else
 			{
